@@ -12,6 +12,7 @@ class Node(models.Model):
     2. a directed graph    (a -> b -> c -> D)
 
     """
+
     name = models.CharField(max_length=200)
 
     def __str__(self):
@@ -23,6 +24,7 @@ class Edge(models.Model):
     we say that two nodes are neighbors if the are connected by an edge.
 
     """
+
     start_node = models.ForeignKey(
         Node,
         verbose_name="From",
@@ -39,7 +41,16 @@ class Edge(models.Model):
     )
 
     class Meta:
-        unique_together = (('start_node', 'target_node'),)
+        indexes = [
+            models.Index(fields=["start_node", "target_node"], name="forward"),
+            models.Index(fields=["target_node", "start_node"], name="reverse"),
+        ]
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=["start_node", "target_node"], name="edge_unique"
+            )
+        ]
 
     def __str__(self):
         return f"{self.start_node} <-> {self.target_node}"

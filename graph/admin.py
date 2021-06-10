@@ -1,3 +1,13 @@
 from django.contrib import admin
 
-# Register your models here.
+from graph.models import Edge, Node
+
+
+@admin.register(Node)
+class NodeAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Edge)
+class EdgeAdmin(admin.ModelAdmin):
+    pass
