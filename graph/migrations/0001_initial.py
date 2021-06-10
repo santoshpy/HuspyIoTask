@@ -3,6 +3,8 @@
 import django.db.models.deletion
 from django.db import migrations, models
 
+from graph.utils import read_sql
+
 
 class Migration(migrations.Migration):
 
@@ -63,4 +65,11 @@ class Migration(migrations.Migration):
                 "unique_together": {("start_node", "target_node")},
             },
         ),
+
+        # Check unique_edge as undirected graph
+        migrations.RunSQL(read_sql('trigger.sql')),
+        # Check unique pair constraint for edges, Prevent to add same node as source and destination
+        migrations.RunSQL(read_sql('constraint.sql')),
+        # Create all_path view for undirected graph search
+        migrations.RunSQL(read_sql('view.sql')),
     ]
