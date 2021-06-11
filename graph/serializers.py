@@ -4,8 +4,8 @@ from graph.models import Edge, Node
 
 
 class ConnectNodeSerializer(serializers.Serializer):
-    start_node = serializers.CharField(max_length=200)
-    target_node = serializers.CharField(max_length=200)
+    From = serializers.CharField(source='start_node', max_length=200)
+    To = serializers.CharField(source='target_node', max_length=200)
 
     def create(self, validated_data):
         start_node = validated_data.pop("start_node")
