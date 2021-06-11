@@ -15,6 +15,6 @@ python manage.py flush --no-input
 echo "Database Migrate..."
 python manage.py migrate --no-input
 echo "Running TestCase..."
-python manage.py tests --no-input
+python manage.py test --no-input
 
 exec "$@"
