@@ -1,3 +1,7 @@
+[![Python Version](https://img.shields.io/badge/Python-3.9.5-brightgreen.svg)](https://python.org)
+[![Django Version](https://img.shields.io/badge/Django-3.2.4-brightgreen.svg)](https://djangoproject.com)
+[![React Version](https://img.shields.io/badge/DRF-3.12.4-brightgreen.svg)](https://www.django-rest-framework.org/)
+
 # HuspyIoTask
 
 Please create the following REST endpoints in Django:
@@ -68,9 +72,35 @@ Response
 }
 ```
 
+# Implementation
+
+The backend is implemented using Django in Pyhton, with Django REST framework.
+
 ## Model Relationship Daigram
 
 ![Graph](images/graph_relationship.png)
+
+## Running locally 
+
+1. Clone github repository
+
+```bash
+git clone https://github.com/santoshpy/HuspyIoTask.git
+```
+2. got to folder HuspyIoTask
+```bash
+cd HuspyIoTask/
+```
+
+3. Rename example.env file to .env
+```bash
+mv example.env .env
+```
+4. Change appropriate enviroement varaiable in .env file
+5. Build and run via docker compose
+```bash
+docker compose up --build
+```
 
 ## TestCase Graph
 
