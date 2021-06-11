@@ -5,7 +5,7 @@ services:
         build: .
         networks:
                 - backend
-        command: gunicorn ${PROJECT_NAME}.wsgi:application --bind 0.0.0.0:8000
+        command: gunicorn ${PROJECT_NAME}.wsgi:application --bind 0.0.0.0:${WEB_EXPOSE_PORT}
         expose:
                 - ${WEB_EXPOSE_PORT}
         volumes:
@@ -31,9 +31,9 @@ services:
         volumes:
                 - ./pgdata/:/var/lib/postgresql/data
         environment:
-                - POSTGRES_DB=${DOCKER_DB_NAME}
-                - POSTGRES_USER=${DOCKER_DB_USER}
-                - POSTGRES_PASSWORD=${DOCKER_DB_PASSWORD}
+                - POSTGRES_DB=${DB_NAME}
+                - POSTGRES_USER=${DB_USER}
+                - POSTGRES_PASSWORD=${DB_PASSWORD}
 networks:
         backend:
 volumes:

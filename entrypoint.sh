@@ -12,6 +12,9 @@ then
 fi
 
 python manage.py flush --no-input
-python manage.py migrate
+echo "Database Migrate..."
+python manage.py migrate --no-input
+echo "Running TestCase..."
+python manage.py tests --no-input
 
 exec "$@"

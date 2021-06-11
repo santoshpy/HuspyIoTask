@@ -23,5 +23,5 @@ RUN chown -R app:app /home/app
 USER app
 RUN python manage.py collectstatic --no-input -c
 
-# run entrypoint.sh
+
 ENTRYPOINT ["/home/app/entrypoint.sh"]
