@@ -1,0 +1,40 @@
+version: "3.3"
+services:
+    web:
+        container_name: web
+        build: .
+        networks:
+                - backend
+        command: gunicorn ${PROJECT_NAME}.wsgi:application --bind 0.0.0.0:8000
+        expose:
+                - ${WEB_EXPOSE_PORT}
+        volumes:
+                - static_files:${WORKDIR}/webroot
+
+    nginx:
+        image: nginx:1.21.0-alpine
+        container_name: web_nginx
+        volumes:
+                - static_files:/webroot
+                - ./nginx_conf/:/etc/nginx/conf.d
+        networks:
+                - backend
+        ports:
+                - ${NGINX_EXPOSE_PORT}:${NGINX_EXPOSE_PORT}
+        depends_on:
+                - web
+    db:
+        image: postgres:13.3-alpine
+        container_name: postgres_db
+        networks:
+                - backend
+        volumes:
+                - ./pgdata/:/var/lib/postgresql/data
+        environment:
+                - POSTGRES_DB=${DOCKER_DB_NAME}
+                - POSTGRES_USER=${DOCKER_DB_USER}
+                - POSTGRES_PASSWORD=${DOCKER_DB_PASSWORD}
+networks:
+        backend:
+volumes:
+        static_files:
